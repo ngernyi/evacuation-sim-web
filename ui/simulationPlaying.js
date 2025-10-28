@@ -239,9 +239,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     // console.log(simulationId);
     const storedData = localStorage.getItem('simulationResult');
     const hi = localStorage.getItem('customSimData');
-    console.log(hi);
+    // console.log(hi);
     
-    console.log(storedData);
+    // console.log(storedData);
     if (storedData) {
 
         const data = JSON.parse(storedData);
@@ -253,7 +253,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("simulationNameText").innerHTML += data.simulation_metadata.Simulation_Name;
 
         data.evacuees.forEach(ev => {
-            console.log(ev);
+            // console.log(ev);
             const evacueeGraphicAdded =addEvacuee(ev.Longitude, ev.Latitude, ev.Z);
             evacueesGraphic.push(evacueeGraphicAdded);
 
