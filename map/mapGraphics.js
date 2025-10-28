@@ -10,7 +10,7 @@ export function addFire(lon, lat, z) {
         symbolLayers: [
           { 
             type: "object", 
-            resource: { href: "./assets/models/flame__test.glb" }, 
+            resource: { href: "/assets/models/flame__test.glb" }, 
             material: { color: "red" }, 
             height: 3, 
             width: 3, 
@@ -31,7 +31,7 @@ export function addEvacuee(lon, lat, z) {
       type: "point-3d",
       symbolLayers: [{ 
         type: "object", 
-        resource: { href: "./assets/models/basic_human_model..glb" }, 
+        resource: { href: "/assets/models/basic_human_model..glb" }, 
         material: { color: "blue" }, 
         height: 1, 
         width: 1, 
