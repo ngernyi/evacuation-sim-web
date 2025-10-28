@@ -169,7 +169,8 @@ document.getElementById('customSimButton').addEventListener('click', function() 
         localStorage.setItem('simulationResult', JSON.stringify(data));
         localStorage.setItem('customSimData', "hi");
 
-        window.location.href = "${window.location.origin}/html/simulationPlaying.html";
+        window.location.href = `${window.location.origin}/html/simulationPlaying.html`;
+
 
 
     })
