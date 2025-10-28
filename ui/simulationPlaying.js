@@ -214,7 +214,7 @@ document.getElementById('resumeBtn').addEventListener('click', () => {
 });
 // document.getElementById('pauseBtn').addEventListener('click', pauseSimulation);
 document.getElementById('stopBtn').addEventListener('click', () => {
-    window.location.href = `${window.location.origin}/html/landingPage.html`;
+    window.location.href = "/html/landingPage.html";
 
 })
 
