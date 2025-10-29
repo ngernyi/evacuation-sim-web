@@ -97,6 +97,7 @@ html, body {
     /* flex: 1; */
     /* margin: 0 5px; */
     /* padding: 8px 0; */
+    all: unset;
     background-color: #444;
     color: white;
     border: none;
