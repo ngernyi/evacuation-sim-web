@@ -13,6 +13,8 @@ function waitForMapView(callback) {
     view.when(() => {
         console.log("mapView loaded");
         console.log("mapView loaded");
+
+        // desktop browser controls
         window.mapView.container.addEventListener("mousedown", (event) => {
             console.log("mousedown");
             
@@ -77,23 +79,43 @@ function waitForMapView(callback) {
 
         });
 
-        let touchTimer;
-        window.mapView.container.addEventListener("touchstart", (event) => {
-          touchTimer = setTimeout(async () => {
-            const touch = event.touches[0];
-            const hit = await window.mapView.hitTest({ x: touch.clientX, y: touch.clientY });
+        // mobile browser controls
+        let longPressTimer;
+        let touchStartPos;
+        let isLongPress = false;
+
+        window.mapView.container.addEventListener("touchstart", (e) => {
+          if (e.touches.length > 1) return; // ignore multi-touch
+
+          touchStartPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+          isLongPress = false;
+
+          longPressTimer = setTimeout(async () => {
+            isLongPress = true;
+
+            const hit = await window.mapView.hitTest(touchStartPos);
             if (hit.results.length > 0) {
               window.lastClickedPoint = hit.results[0].mapPoint;
             } else {
-              window.lastClickedPoint = window.mapView.toMap({ x: touch.clientX, y: touch.clientY });
+              window.lastClickedPoint = window.mapView.toMap(touchStartPos);
             }
-            showMenu(addMenuu, touch.clientX, touch.clientY);
-          }, 500); // 500ms long press
+
+            showMenu(addMenuu, touchStartPos.x, touchStartPos.y);
+
+          }, 600); // long press duration
         });
 
-        window.mapView.container.addEventListener("touchend", () => {
-          clearTimeout(touchTimer); // cancel if released early
+        window.mapView.container.addEventListener("touchmove", (e) => {
+          if (isLongPress) {
+            closeMenu(); // user started dragging, close menu
+          }
+          clearTimeout(longPressTimer); // cancel long press if moving
         });
+
+        window.mapView.container.addEventListener("touchend", (e) => {
+          clearTimeout(longPressTimer); // cancel timer on touch end
+        });
+
     });
   });
 
