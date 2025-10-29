@@ -76,6 +76,24 @@ function waitForMapView(callback) {
             }
 
         });
+
+        let touchTimer;
+        window.mapView.container.addEventListener("touchstart", (event) => {
+          touchTimer = setTimeout(async () => {
+            const touch = event.touches[0];
+            const hit = await window.mapView.hitTest({ x: touch.clientX, y: touch.clientY });
+            if (hit.results.length > 0) {
+              window.lastClickedPoint = hit.results[0].mapPoint;
+            } else {
+              window.lastClickedPoint = window.mapView.toMap({ x: touch.clientX, y: touch.clientY });
+            }
+            showMenu(addMenuu, touch.clientX, touch.clientY);
+          }, 500); // 500ms long press
+        });
+
+        window.mapView.container.addEventListener("touchend", () => {
+          clearTimeout(touchTimer); // cancel if released early
+        });
     });
   });
 
